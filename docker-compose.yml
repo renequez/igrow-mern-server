@@ -1,0 +1,38 @@
+version: "3.8"
+services:
+  app:
+    build: .
+    container_name: igrow_server
+    depends_on:
+      - postgres
+    ports:
+      - "5000:5000"
+    volumes:
+      # map current project directory `.` to our working directory in the container
+      - ./:/app
+      # node_modules workaround for volumes
+      # https://stackoverflow.com/a/32785014
+      - /app/node_modules
+
+  postgres:
+    image: postgres
+    container_name: igrow_db
+    restart: always
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_DB=root
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./database/data:/var/lib/postgresql/data
+
+  # pgadmin:
+  #   image: dpage/pgadmin4
+  #   environment:
+  #     PGADMIN_DEFAULT_EMAIL: "placeholder@example.com"
+  #     PGADMIN_DEFAULT_PASSWORD: "fakepassword123!"
+  #   ports:
+  #     - "4000:80"
+  #   depends_on:
+  #     - postgres
