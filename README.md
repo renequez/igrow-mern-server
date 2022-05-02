@@ -8,3 +8,11 @@ git clone https://github.com/renequez/igrow-mern-server
 cd igrow-mern-server
 docker-compose up -d
 ```
+For development you have to also run `npm i`.
+## Check
+To see if everything is working correctly, go in your browser and visit `http://localhost:5000/home`. You should see the following:
+```json
+{
+    "message": "home!"
+}
+```
